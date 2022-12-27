@@ -60,7 +60,8 @@ public class Sortie {
     }
 
     public void fillHRseries(XYChart.Series serie) {
-        //TODO
+
+
 
     }
 
@@ -70,7 +71,11 @@ public class Sortie {
      * @param serie
      */
     public void fillPuisseries(XYChart.Series serie) {
-        //TODO
+        listeEnregistrements.forEach( enregistrement -> {
+            int secondeActuel = enregistrement.getSeconde();
+            int puissanceActuel = enregistrement.getWatts();
 
+            serie.getData().add(new XYChart.Data<>(secondeActuel,puissanceActuel));
+        });
     }
 }
