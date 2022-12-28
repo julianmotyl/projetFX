@@ -6,6 +6,7 @@
 package com.mycompany.projetfx;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
@@ -69,9 +70,9 @@ public class ProjetFX extends Application {
             FileChooser selectCSV = new FileChooser();
             selectCSV.setTitle("Open Resource File");
 //            selectCSV.selectedExtensionFilterProperty().setValue();
-            selectCSV.showOpenDialog(primaryStage);
+            File file = selectCSV.showOpenDialog(primaryStage);
             try {
-                sortie = new Sortie(selectCSV.getInitialDirectory().getPath());
+                sortie = new Sortie(file.getPath());
 
             } catch (NullPointerException e) {
                 hboxMessage.getChildren().add(new Text("Le fichier n'existe pas !!"));
