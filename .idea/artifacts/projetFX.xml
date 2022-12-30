@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="projetFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/projetFX</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.mycompany.projetfx.ProjetFX" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="projetFX" />
+        <option name="vendor" value="" />
+        <option name="version" value="0.1" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="projetFX.jar">
+        <element id="module-output" name="projetFX" />
+      </element>
+    </root>
+  </artifact>
+</component>

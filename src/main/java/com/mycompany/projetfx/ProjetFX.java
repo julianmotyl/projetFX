@@ -7,17 +7,18 @@ package com.mycompany.projetfx;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.Arrays;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart. NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,16 +38,16 @@ public class ProjetFX extends Application {
     public void start(Stage primaryStage) {
         Button boutonLireFichier = new Button("Lire fichier");
         Button btnPrintSortie = new Button("Print sortie");
-        Button btnHR = new Button("Profil HR");
-        Button btnP = new Button("Puissance moyenne");
+
 
         VBox vbx = new VBox(5);
-        HBox hboxButtons = new HBox (5);
+        HBox hboxFileSelector = new HBox (5);
         HBox hboxMessage = new HBox(5);
 
-        hboxButtons.getChildren().addAll(boutonLireFichier, btnPrintSortie, btnHR, btnP);
+        HBox hboxButtonsGraphics = statsButtonsBuilder();
+        hboxFileSelector.getChildren().addAll(boutonLireFichier, btnPrintSortie);
 
-        vbx.getChildren().add(hboxButtons);
+        vbx.getChildren().addAll(hboxFileSelector, hboxButtonsGraphics,hboxMessage);
 
 
         final NumberAxis xAxis = new NumberAxis();
@@ -65,7 +66,9 @@ public class ProjetFX extends Application {
         primaryStage.show();
         
         //-------------------------------------------------------------------
-        
+
+
+
         boutonLireFichier.setOnAction((ActionEvent event) -> {
             FileChooser selectCSV = new FileChooser();
             selectCSV.setTitle("Open Resource File");
@@ -75,6 +78,7 @@ public class ProjetFX extends Application {
                 sortie = new Sortie(file.getPath());
 
             } catch (NullPointerException e) {
+                hboxMessage.getChildren().removeAll();
                 hboxMessage.getChildren().add(new Text("Le fichier n'existe pas !!"));
                 vbx.getChildren().add(hboxMessage);
             }
@@ -113,6 +117,37 @@ public class ProjetFX extends Application {
             chart.getData().add(seriesPuiss);
             vbx.getChildren().add(chart);
         });
+    }
+
+    public HBox statsButtonsBuilder(VBox vbx, NumberAxis yAxis, XYChart chart, XYChart.Series series) {
+        VBox vBoxDataSelector = new VBox(5);
+        Button btnHR = new Button("Profil HR");
+        Button btnP = new Button("Puissance moyenne");
+
+        Arrays.stream(Enregistrement.class.getDeclaredFields()).toList().forEach( field -> {
+            Button button = new Button(field.getName()).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+                boolean clicked = false;
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    button.setOnAction((actionEvent -> {
+                        if (clicked) {
+
+                        } else {
+                            yAxis.(field.getName());
+                            series.setName(field.getName());
+
+                            sortie.fillPuisseries(series);
+                            chart.getData().add(series);
+                            vbx.getChildren().add(chart);
+                        }
+                    }));
+                }
+            vBoxDataSelector.getChildren().add(
+            });)
+
+        });
+
     }
     
     public static void main(String[] args) {

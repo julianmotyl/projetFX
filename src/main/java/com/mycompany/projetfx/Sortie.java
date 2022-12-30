@@ -60,7 +60,11 @@ public class Sortie {
     }
 
     public void fillHRseries(XYChart.Series serie) {
+        listeEnregistrements.forEach( enregistrement -> {
+                    int secondeActuel = enregistrement.getSeconde();
+                    int puissanceActuel = enregistrement.getHr();
 
+                    serie.getData().add(new XYChart.Data<>(secondeActuel,puissanceActuel));
 
 
     }
